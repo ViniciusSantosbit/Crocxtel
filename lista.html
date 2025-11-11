@@ -3,201 +3,347 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crocxtel</title>
-</head>
-<body>
-    <div class="site" id="site">
-        <header class="site-header" role="banner">
-            <div class="container header-inner">
-                <a class="brand" href="#" aria-label="Crocxtel - Página Inicial">
-                    <span class="brand-logo" aria-hidden="true">Crocx</span>
-                 </a>
-            <nav class="main-nav" role="navigation" aria-label="Navegação no site">
-                <ul>
-                    <li> <a href="#sobre">Sobre</a></li>
-                    <li><a href="#cardapio">Cardápio</a></li>
-                    <li> <a href="#loja">Loja</a></li>
-                    <li><a href="#Contato">Contato</a></li>
-                </ul>
-            </nav>
-            
-            <div class="header-cta">
-                <a href="#pedido" class="btn btn-primary">Peça sua comida On-line!</a>
-            </div>
+    <title>Crocxtel - O Pastel Crocante que te Frita</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        /* Variáveis de Cores Globais */
+        :root {
+            /* Usando a fonte do sistema conforme o CSS fornecido */
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            --secondary: #fb8500; /* Cor de Destaque (Laranja/Âmbar) */
+        }
 
-            <button class="mobile-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menu">
-                <span class="hamburguer" aria-hidden="true">☰</span>
-            </button>
+        /* Estilos Customizados Chave */
+
+        /* Estilo do Logo Crocxtel */
+        .brand-logo {
+            font-family: 'Impact', sans-serif;
+            font-size: 2.5rem;
+            color: var(--secondary);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); 
+        }
+
+        /* Estilo da Navegação (Efeito Vidro Embaçado) */
+        .site-header {
+            /* background: rgba(255,255,255,0.85); para o efeito "vidro" no header */
+            background: rgba(255,255,255,0.85); 
+        }
+
+        /* Estilo do Hero (Gradiente de Fundo) */
+        .hero {
+            /* Gradiente: linear-gradient(to bottom right, primary, secondary) */
+            background: linear-gradient(to bottom right, #ffb703, var(--secondary));
+            min-height: 100vh;
+            /* NOVO: Ajustes para sobrepor o conteúdo na imagem */
+            position: relative; 
+            z-index: 10;
+        }
+
+        /* NOVO: Estilo para a imagem de fundo da seção Hero */
+        .hero-image-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Garante que a imagem cubra toda a área */
+            opacity: 0.3; /* A imagem está com 30% de opacidade para que o texto ainda seja legível */
+            z-index: -1; /* Coloca a imagem atrás do texto */
+        }
+
+        /* Estilo para a navegação em dispositivos móveis (transição) */
+        .mobile-menu {
+            transition: max-height 0.3s ease-out;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+    <div class="site" id="site">
+        <header class="site-header sticky top-0 z-30 backdrop-blur-md shadow-md" role="banner">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-20">
+                    <a class="brand flex items-center" href="#home" aria-label="Crocxtel - Página Inicial">
+                        <span class="brand-logo" aria-hidden="true">Crocxtel</span>
+                    </a>
+                    
+                    <nav class="main-nav hidden md:block" role="navigation" aria-label="Navegação no site">
+                        <ul class="flex space-x-8">
+                            <li><a href="#sobre" class="text-lg font-medium text-gray-600 hover:text-[--secondary] transition duration-150">Sobre</a></li>
+                            <li><a href="#cardapio" class="text-lg font-medium text-gray-600 hover:text-[--secondary] transition duration-150">Cardápio</a></li>
+                            <li><a href="#lojas" class="text-lg font-medium text-gray-600 hover:text-[--secondary] transition duration-150">Loja</a></li>
+                            <li><a href="#contato" class="text-lg font-medium text-gray-600 hover:text-[--secondary] transition duration-150">Contato</a></li>
+                        </ul>
+                    </nav>
+                    
+                    <div class="header-cta hidden md:block">
+                        <a href="#pedido" class="inline-flex items-center justify-center font-extrabold text-white bg-[--secondary] hover:bg-orange-600 transition duration-300 ease-in-out px-6 py-3 rounded-full shadow-lg transform hover:scale-105">
+                            Peça sua comida On-line!
+                        </a>
+                    </div>
+
+                    <button class="mobile-toggle md:hidden p-2 rounded-lg text-gray-600 hover:bg-orange-100" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menu" id="toggleButton">
+                        <span class="hamburguer text-3xl" aria-hidden="true">☰</span>
+                    </button>
+                </div>
             </div>
             
-            <div id="mobile-menu" class="mobile-menu" hidden>
-                <ul>
-                    <li><a href="#sobre">Sobre</a></li>
-                    <li><a href="#cardapio">Cardápio</a></li>
-                    <li><a href="#loja">Loja</a></li>
-                    <li><a href="#contato">Contato</a></li>
-                    <li><a href="#pedido" class="btn btn-primary">Peça On-line!</a></li>
+            <div id="mobile-menu" class="mobile-menu md:hidden bg-white shadow-xl" hidden>
+                <ul class="px-4 pt-2 pb-4 space-y-2">
+                    <li><a href="#sobre" class="block py-2 px-3 text-lg font-medium text-gray-700 hover:bg-orange-50 rounded-lg">Sobre</a></li>
+                    <li><a href="#cardapio" class="block py-2 px-3 text-lg font-medium text-gray-700 hover:bg-orange-50 rounded-lg">Cardápio</a></li>
+                    <li><a href="#lojas" class="block py-2 px-3 text-lg font-medium text-gray-700 hover:bg-orange-50 rounded-lg">Loja</a></li>
+                    <li><a href="#contato" class="block py-2 px-3 text-lg font-medium text-gray-700 hover:bg-orange-50 rounded-lg">Contato</a></li>
+                    <li class="pt-4"><a href="#pedido" class="inline-flex items-center justify-center font-extrabold text-white bg-[--secondary] hover:bg-orange-600 transition duration-300 ease-in-out px-6 py-3 rounded-full shadow-lg w-full text-center">Peça On-line!</a></li>
                 </ul>
-            </div>  
+            </div>
         </header>
 
-        <section class="hero" id="home" role="region" aria-label="Apresentação Crocxtel">
-            <div class="hero-inner container">
-                <div class="hero-copy">
-                    <h1 class="hero-title">Crocxtel - O pastel corocante que te frita! </h1>
-                    <p class="hero-subtitle">Recheios caseiros, massa ultra crocante. Entrega rápida para sua casa.</p> 
-                </div>
-                </div>
-                <div class="hero-media" aria-hidden="true">
-                    <div class="image-placeholder"> <img src="" alt="Pastel super crocante"></div>
-                </div>
+        <section class="hero flex flex-col justify-center items-center text-center text-white py-16 px-4" id="home" role="region" aria-label="Apresentação Crocxtel">
+            
+            <img 
+                src="pastelaria-artesanal.jpg" 
+                alt="Imagem de fundo da Crocxtel, talvez um pastel gigante ou óleo fervendo!" 
+                class="hero-image-bg" 
+                loading="eager" 
+                aria-hidden="true"
+            />
+            
+            <div class="hero-copy max-w-2xl">
+                <h1 class="hero-title text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 tracking-tighter">
+                    Crocxtel - O pastel crocante que te frita!
+                </h1>
+                <p class="hero-subtitle text-xl sm:text-2xl font-light text-white/90 mb-8">
+                    Recheios caseiros, massa ultra crocante. Entrega rápida para sua casa.
+                </p>
+                <a href="#cardapio" class="inline-block bg-white text-[--secondary] font-extrabold text-xl px-8 py-4 rounded-full shadow-2xl transition duration-300 hover:scale-[1.05] hover:bg-gray-100">
+                    Ver Cardápio Agora!
+                </a>
             </div>
         </section>
 
-        <section class="features container" aria-labelledby="features-title">
+        <section class="features container mx-auto px-4 sm:px-6 lg:px-8 py-16" aria-labelledby="features-title">
             <h2 id="features-title" class="sr-only">Destaques</h2>
-            <ul class="features-grid">
-                <li class="feature-item">
-                    <h3>Massas extremamente CROCXcantes</h3>
-                    <p>Massa feita diariamente e frita na hora para garantir a CROCXcância. </p>  
+            <ul class="features-grid grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <li class="feature-item p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                    <div class="text-5xl mb-4 text-[--secondary]">✨</div>
+                    <h3 class="text-2xl font-semibold mb-2 text-gray-900">Massas extremamente CROCXcantes</h3>
+                    <p class="text-gray-600">Massa feita diariamente e frita na hora para garantir a CROCXcância.</p> 
                 </li>
-                <li class="feature-item">
-                    <h3>Recheios Criativos:</h3>
-                    <p>Clássicos e receitas exclusivas - opção vegana e artesanal.</p>
+                <li class="feature-item p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                    <div class="text-5xl mb-4 text-[--secondary]">🌶️</div>
+                    <h3 class="text-2xl font-semibold mb-2 text-gray-900">Recheios Criativos</h3>
+                    <p class="text-gray-600">Clássicos e receitas exclusivas - opção vegana e artesanal.</p>
                 </li>
-                <li class="feature-item">
-                    <h3>Entrega Rápida:</h3>
-                    <p>Parceria com os melhores aplicativos de entrega para receber seu Crocxtel quente e saboroso</p>                    
+                <li class="feature-item p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                    <div class="text-5xl mb-4 text-[--secondary]">🛵</div>
+                    <h3 class="text-2xl font-semibold mb-2 text-gray-900">Entrega Rápida</h3>
+                    <p class="text-gray-600">Parceria com os melhores aplicativos para receber seu Crocxtel quente e saboroso.</p>
                 </li>
             </ul>
         </section>
 
-         <section class="menu" id="cardapio" role="region" aria-labelledby="menu-title">
-            <div>
-                <header class="section-header">
-                    <h2 id="menu-title">Cardápio</h2>
-                    <p>Escolha seu Crocxtel preferido:</p>
+        <section class="menu bg-gray-100 py-16" id="cardapio" role="region" aria-labelledby="menu-title">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <header class="section-header text-center mb-12">
+                    <h2 id="menu-title" class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-3">Cardápio</h2>
+                    <p class="text-xl text-gray-600">Escolha seu Crocxtel preferido:</p>
                 </header>
 
-                <ul class="menu-grid" aria-live="poltite">
-                    <li class="menu-card" data-id="1">
-                        <img src="" alt="Pastel de Queijo" class="menu-image">
-                        <div class="menu-body">
-                            <h3 class="menu-title">CrocxQueijo</h3>
-                            <p>Queijo artesanal, cremoso e saboroso.</p>
-                            <div class="menu-meta">
-                                <span class="price">R$ 12,40</span>
-                                <a href="#pedido" class="btn btn-sm">Pedir <br></a>
+                <ul class="menu-grid grid grid-cols-1 md:grid-cols-3 gap-8" aria-live="polite">
+                    <li class="menu-card bg-white rounded-2xl shadow-lg overflow-hidden group transform hover:translate-y-[-8px] transition duration-300 hover:shadow-xl" data-id="1">
+                        <img 
+                            src="queijo.jpeg" 
+                            alt="Pastel de Queijo Crocxtel" 
+                            class="menu-image w-full h-48 object-cover group-hover:opacity-85 transition duration-300" 
+                            onerror="this.onerror=null;this.src='https://placehold.co/600x400/FFD700/8B4513?text=Pastel+de+Queijo';" 
+                            loading="lazy">
+                        <div class="menu-body p-6">
+                            <h3 class="menu-title text-2xl font-bold text-gray-900 mb-2">CrocxQueijo</h3>
+                            <p class="text-gray-600 mb-4">Queijo artesanal, cremoso e saboroso.</p>
+                            <div class="menu-meta flex justify-between items-center">
+                                <span class="price text-2xl font-extrabold text-[--secondary]">R$ 12,40</span>
+                                <a href="#pedido" class="inline-flex items-center justify-center font-extrabold text-white bg-[--secondary] hover:bg-orange-600 transition duration-300 ease-in-out text-sm px-4 py-2 rounded-full shadow-lg">Pedir</a>
                             </div>
                         </div>
                     </li>
-                    <li class="menu-card" data-id="2">
-                        <img src="" alt="Pastel de Carne">
-                        <div class="menu-body">
-                            <h3 class="menu-title">CrocxMoída</h3>
-                            <p class="menui-desc">Carne temperada com cebola estilo Crocxtel.</p>
-                            <div class="menu-meta">
-                                <span class="price">R$ 14,49</span>
-                                <a href="#pedido" class="btn btn-sm">Pedir</a>
+                    <li class="menu-card bg-white rounded-2xl shadow-lg overflow-hidden group transform hover:translate-y-[-8px] transition duration-300 hover:shadow-xl" data-id="2">
+                        <img 
+                            src="pastel-de-carne-seca.jpg" 
+                            alt="Pastel de Carne Crocxtel" 
+                            class="menu-image w-full h-48 object-cover group-hover:opacity-85 transition duration-300" 
+                            onerror="this.onerror=null;this.src='https://placehold.co/600x400/B0E0E6/4682B4?text=Pastel+de+Carne+Moída';" 
+                            loading="lazy">
+                        <div class="menu-body p-6">
+                            <h3 class="menu-title text-2xl font-bold text-gray-900 mb-2">CrocxMoída</h3>
+                            <p class="text-gray-600 mb-4">Carne temperada com cebola estilo Crocxtel.</p>
+                            <div class="menu-meta flex justify-between items-center">
+                                <span class="price text-2xl font-extrabold text-[--secondary]">R$ 14,49</span>
+                                <a href="#pedido" class="inline-flex items-center justify-center font-extrabold text-white bg-[--secondary] hover:bg-orange-600 transition duration-300 ease-in-out text-sm px-4 py-2 rounded-full shadow-lg">Pedir</a>
                             </div>
                         </div>
                     </li>
-                    <li class="menu-card" data-id="3">
-                        <img src="" alt="Pastel Vegano">
-                        <div class="menu-body">
-                            <h3 class="menu-title">Vegano Crocx</h3>
-                            <p class="menui-desc">Pra quem gosta de Legumes grelhados e molho especializado.</p>
-                            <div class="menu-meta">
-                                <span class="price">R$17,49</span>
-                                <a href="#pedido" class="btn btn-sm">Pedir</a>
-                           </div>
+                    <li class="menu-card bg-white rounded-2xl shadow-lg overflow-hidden group transform hover:translate-y-[-8px] transition duration-300 hover:shadow-xl" data-id="3">
+                        <img 
+                            src="vegano.png" 
+                            alt="Pastel Vegano Crocxtel" 
+                            class="menu-image w-full h-48 object-cover group-hover:opacity-85 transition duration-300" 
+                            onerror="this.onerror=null;this.src='https://placehold.co/600x400/90EE90/3CB371?text=Pastel+Vegano';" 
+                            loading="lazy">
+                        <div class="menu-body p-6">
+                            <h3 class="menu-title text-2xl font-bold text-gray-900 mb-2">Vegano Crocx</h3>
+                            <p class="text-gray-600 mb-4">Legumes grelhados e molho especializado.</p>
+                            <div class="menu-meta flex justify-between items-center">
+                                <span class="price text-2xl font-extrabold text-[--secondary]">R$ 17,49</span>
+                                <a href="#pedido" class="inline-flex items-center justify-center font-extrabold text-white bg-[--secondary] hover:bg-orange-600 transition duration-300 ease-in-out text-sm px-4 py-2 rounded-full shadow-lg">Pedir</a>
+                            </div>
                         </div>
                     </li>
                 </ul>
-                <div class="menu-footer">
-                    <a href="#cardapio" class="link">Ver o cardápio completo.</a>
+                <div class="menu-footer text-center mt-12">
+                    <a href="#cardapio" class="link text-lg font-semibold text-[--secondary] hover:text-orange-700 underline transition duration-150">Ver o cardápio completo.</a>
                 </div>
             </div>
-         </section>
+        </section>
 
-         <section class="about container" id="sobre" role="region" aria-labelledby="about-title">
-            <div class="about-inner">
-                <h2 id="about-title">Porque eu fiz esse site?</h2>
-                <p>Criei esse site no meme pra praticar html, js e css, evitando o máximo usar o Gemini ou ChatGPT, porém não vou negar que usei pra me ajudar com coisa que eu não sabia nada</p>
-                 <ul class="stats-list">
-                    <li><strong>10+</strong> Sabores únicos</li>
-                    <li><strong>Ceilândia-Norte(meu quarto)</strong> ->Onde fica nossa loja</li>
-                    <li><strong>100k</strong>Pastéis vendidos</li>                 
-                 </ul>
+        <section class="about container mx-auto px-4 sm:px-6 lg:px-8 py-16" id="sobre" role="region" aria-labelledby="about-title">
+            <div class="about-inner bg-white p-8 md:p-12 rounded-2xl shadow-xl">
+                <h2 id="about-title" class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-6">Porque eu fiz esse site?</h2>
+                <p class="text-lg text-gray-700 mb-8">
+                    Criei esse site no meme pra praticar **HTML, JavaScript e CSS**, evitando o máximo usar o Gemini ou ChatGPT. Mas, não vou negar que usei para me ajudar com coisas que eu não sabia nada (afinal, somos parceiros!).
+                </p>
+                <ul class="stats-list grid grid-cols-1 sm:grid-cols-3 gap-6 text-center border-t border-b border-orange-200 py-6">
+                    <li class="border-r border-orange-200 sm:last:border-r-0">
+                        <strong class="block text-4xl font-extrabold text-[--secondary]">10+</strong>
+                        <span class="text-gray-600">Sabores únicos</span>
+                    </li>
+                    <li class="border-r border-orange-200 sm:last:border-r-0">
+                        <strong class="block text-4xl font-extrabold text-[--secondary]">Ceilândia-Norte</strong>
+                        <span class="text-gray-600">Onde fica nossa loja (meu quarto!)</span>
+                    </li>
+                    <li>
+                        <strong class="block text-4xl font-extrabold text-[--secondary]">100k</strong>
+                        <span class="text-gray-600">Pastéis vendidos (em 2026!)</span>
+                    </li>
+                </ul>
             </div>
-         </section>
+        </section>
 
-         <section class="locations-container" id="lojas" role="region" aria-labelledby="locations-title">
-            <h2 id="locations-title">Nossa loja:</h2>
-            <div class="locations-grid">
-                <article class="location-card">
-                    <h3>Ceilândia-Norte</h3>
-                    <address>Meu quarto bb, 123 - CHAMA</address>
-                    <p>Seg - Sex: 18h - 22h</p>
-                </article>                                              
+        <section class="locations-container bg-[--secondary] py-16" id="lojas" role="region" aria-labelledby="locations-title">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 id="locations-title" class="text-4xl font-extrabold text-white mb-8">Nossa Loja:</h2>
+                <div class="locations-grid flex justify-center">
+                    <article class="location-card bg-white p-8 rounded-xl shadow-2xl max-w-sm">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Ceilândia-Norte</h3>
+                        <address class="not-italic text-lg text-gray-700 mb-2">Meu quarto bb, 123 - CHAMA</address>
+                        <p class="text-xl font-semibold text-[--secondary]">Seg - Sex: 18h - 22h</p>
+                    </article>
+                </div>
             </div>
-         </section>
-            
-         <section class="contact container" id="contato" role="region" aria-labelledby="contact-title">
-            <h2 id="contact-title">Entre em contato:</h2>
-            <div class="contact-grid">
-                <form action="#" method="post" class="contact-form" aria-label="Formulario"></form>
-                <label for="name">Nome</label>
-                <input id="name" name="name" type="text" required>
-
-                <label for="email">Email</label>
-                <input id="email" name="email" type="email" required>
-
-                <label for="message">Mensagem</label>
-                <textarea name="message" id="message" rows="4" required></textarea>
-
-                <button type="submit" class="btn btn-primary">Enviar</button>
-            </form>
-
-            <div class="newsletter">
-                <h3>Receba Promoções</h3>
-                <p>Cadastre seu e-mail e receba ofertas semanais.</p>
-                <form action="#" method="post" class="newsletter-form">
-                    <label for="newsletter-email" class="newsletter-email">Email para o Chefe Viniboy</label>
-                    <input id="newsletter-email" name="newsletter-email" type="email" placeholder="viniboy@gostoso.com">
-                    <button type="submit" class="btn btn-ghost">Increver</button>
+        </section>
+        
+        <section class="contact container mx-auto px-4 sm:px-6 lg:px-8 py-16" id="contato" role="region" aria-labelledby="contact-title">
+            <h2 id="contact-title" class="text-4xl font-extrabold text-gray-900 mb-10 text-center">Entre em contato:</h2>
+            <div class="contact-grid grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <form action="#" method="post" class="contact-form bg-white p-8 rounded-2xl shadow-lg space-y-4" aria-label="Formulário de Contato">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nome</label>
+                        <input id="name" name="name" type="text" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-[--secondary] focus:border-[--secondary]">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input id="email" name="email" type="email" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-[--secondary] focus:border-[--secondary]">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Mensagem</label>
+                        <textarea name="message" id="message" rows="4" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-[--secondary] focus:border-[--secondary] resize-none"></textarea>
+                    </div>
+                    <button type="submit" class="inline-flex items-center justify-center font-extrabold text-white bg-[--secondary] hover:bg-orange-600 transition duration-300 ease-in-out px-6 py-3 rounded-full shadow-lg w-full py-3">Enviar Mensagem</button>
                 </form>
-            </div>
-         </section>
 
-         <section class="order-cta container" id="pedido" role="regions" aria-labelledby="order-title">
-            <h2 id="order-title">Pronto para seu primeiro Crocxtel?</h2>
-            <p>Peça agora e saboreie o melhor da região(essaporranemvaivender)</p>
-            <div class="order-actions">
-                <a href="#" class="btn btn-primary">Peça Agora!</a>
-                <a href="#lojas" class="btn btn-ghost">Ver Loja</a>               
-            </div>
-         </section>
-
-         <footer class="site-footer" role="contentinfo">
-            <div class="container footer-inner">
-                <div class="footer-brand">
-                    <span class="brand-logo">Crocxtel</span>
-                    <p>@ <span id="year">2026</span>Crocxtel. Todos os direitos reservados.</p>                                      
-                </div>
-                <div class="footer-links">
-                    <a href="#sobre">Sobre</a>
-                    <a href="#cardapio">Cardápio</a>
-                    <a href="#contato">Trabelhe conosco</a>                   
-                </div>
-
-                <div class="social">
-                    <a href="#" aria-label="Instagram">IG</a>
-                    <a href="#" aria-label="GitHub">GB</a>]                    
+                <div class="newsletter bg-orange-100 p-8 rounded-2xl shadow-lg">
+                    <h3 class="text-3xl font-bold text-gray-900 mb-3">Receba Promoções</h3>
+                    <p class="text-lg text-gray-700 mb-6">Cadastre seu e-mail e receba ofertas semanais.</p>
+                    <form action="#" method="post" class="newsletter-form space-y-4">
+                        <label for="newsletter-email" class="block text-sm font-medium text-gray-700 mb-1">Email para o Chefe Viniboy</label>
+                        <input id="newsletter-email" name="newsletter-email" type="email" placeholder="viniboy@gostoso.com" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-[--secondary] focus:border-[--secondary]">
+                        <button type="submit" class="w-full text-white bg-gray-900 hover:bg-gray-700 font-extrabold py-3 px-6 rounded-full transition duration-300 shadow-md">
+                            Increver
+                        </button>
+                    </form>
                 </div>
             </div>
-         </footer>                
+        </section>
 
+        <section class="order-cta bg-[--secondary] text-white py-16" id="pedido" role="region" aria-labelledby="order-title">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 id="order-title" class="text-4xl sm:text-5xl font-extrabold mb-4">Pronto para seu primeiro Crocxtel?</h2>
+                <p class="text-xl font-light mb-8">Peça agora e saboreie o melhor da região (é pra vender sim!)</p>
+                <div class="order-actions flex justify-center space-x-4">
+                    <a href="#cardapio" class="inline-block bg-white text-[--secondary] hover:bg-gray-100 text-xl font-extrabold px-8 py-4 rounded-full transition duration-300 hover:scale-[1.05] shadow-2xl">
+                        Peça Agora!
+                    </a>
+                    <a href="#lojas" class="text-white border-2 border-white hover:bg-white hover:text-[--secondary] font-extrabold py-4 px-6 rounded-full transition duration-300 text-xl">
+                        Ver Loja
+                    </a> 
+                </div>
+            </div>
+        </section>
+
+        <footer class="site-footer bg-gray-900 text-white py-10" role="contentinfo">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 footer-inner flex flex-col md:flex-row justify-between items-center md:items-start space-y-6 md:space-y-0">
+                <div class="footer-brand text-center md:text-left">
+                    <span class="brand-logo text-3xl text-orange-400">Crocxtel</span>
+                    <p class="text-sm text-gray-400 mt-2">© <span id="year">2024</span> Crocxtel. Todos os direitos reservados.</p>
+                </div>
+                <div class="footer-links flex space-x-6 text-center">
+                    <a href="#sobre" class="text-gray-300 hover:text-orange-400 transition duration-150">Sobre</a>
+                    <a href="#cardapio" class="text-gray-300 hover:text-orange-400 transition duration-150">Cardápio</a>
+                    <a href="#contato" class="text-gray-300 hover:text-orange-400 transition duration-150">Trabalhe Conosco</a>
+                </div>
+
+                <div class="social flex space-x-4">
+                    <a href="#" aria-label="Instagram" class="text-2xl text-gray-300 hover:text-orange-400 transition duration-150">IG</a>
+                    <a href="#" aria-label="GitHub" class="text-2xl text-gray-300 hover:text-orange-400 transition duration-150">GB</a>
+                </div>
+            </div>
+        </footer>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleButton = document.getElementById('toggleButton');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinks = mobileMenu.querySelectorAll('a');
+
+            if (toggleButton && mobileMenu) {
+                // Função para fechar o menu e redefinir o botão
+                const closeMenu = () => {
+                    mobileMenu.setAttribute('hidden', true);
+                    toggleButton.setAttribute('aria-expanded', 'false');
+                };
+
+                // Toggle do menu
+                toggleButton.addEventListener('click', () => {
+                    const isExpanded = toggleButton.getAttribute('aria-expanded') === 'true';
+                    if (isExpanded) {
+                        closeMenu();
+                    } else {
+                        mobileMenu.removeAttribute('hidden');
+                        toggleButton.setAttribute('aria-expanded', 'true');
+                    }
+                });
+
+                // Fechar menu ao clicar em um link
+                navLinks.forEach(link => {
+                    link.addEventListener('click', closeMenu);
+                });
+            }
+
+            // Atualiza o ano no rodapé
+            document.getElementById('year').textContent = new Date().getFullYear();
+        });
+    </script>
 </body>
 </html>
